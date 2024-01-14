@@ -688,7 +688,7 @@ services:
   engine:
     image: ${image[${config[core]}]}
     $([[ ${config[security]} == 'reality' ]] && echo "ports:" || true)
-    $([[ ${config[security]} == 'reality' && ${config[port]} -eq 443 ]] && echo '- 80:8080' || true)
+    $([[ ${config[security]} == 'reality' && ${config[port]} -eq 8443 ]] && echo '- 8080:8080' || true)
     $([[ ${config[security]} == 'reality' ]] && echo "- ${config[port]}:8443" || true)
     $([[ ${config[transport]} == 'tuic' || ${config[transport]} == 'hysteria2' ]] && echo "ports:" || true)
     $([[ ${config[transport]} == 'tuic' || ${config[transport]} == 'hysteria2' ]] && echo "- ${config[port]}:8443/udp" || true)
@@ -715,7 +715,7 @@ echo "
   haproxy:
     image: ${image[haproxy]}
     ports:
-    $([[ ${config[security]} == 'letsencrypt' || ${config[port]} -eq 443 ]] && echo '- 80:8080' || true)
+    $([[ ${config[security]} == 'letsencrypt' || ${config[port]} -eq 8443 ]] && echo '- 8080:8080' || true)
     - ${config[port]}:8443
     restart: always
     volumes:
